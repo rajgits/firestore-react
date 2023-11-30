@@ -15,12 +15,16 @@ export default function ItemList() {
     
         return () => unsubscribe();
         }, []);
+
+        const handleDelete = async (id) => {
+            await firestore.collection('items').doc(id).delete();
+        };
   return (
     <div>ItemList
 
     <ul>
       {items.map((item) => (
-        <li key={item.id}>{item.name}</li>
+        <li key={item.id}>{item.name} <a href='#' onClick={() => handleDelete(item.id)}>Delete</a></li>
       ))}
     </ul>
     
